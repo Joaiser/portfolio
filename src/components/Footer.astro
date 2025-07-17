@@ -1,0 +1,51 @@
+---
+const links = [
+    { label: "Inicio", href: "/" },
+    { label: "Sobre mí", href: "#about" },
+    { label: "Proyectos", href: "#projects" },
+    { label: "Contacto", href: "#contact" },
+];
+
+const socials = [
+    { label: "GitHub", href: "https://github.com/tu-usuario" },
+    { label: "LinkedIn", href: "https://linkedin.com/in/tu-usuario" },
+    { label: "Twitter", href: "https://twitter.com/tu-usuario" },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-[#6c21c0] text-white py-12 px-6 text-center">
+    <nav class="mb-6 flex flex-wrap justify-center gap-6">
+        {
+            links.map((link) => (
+                <a
+                    href={link.href}
+                    class="text-lg font-medium hover:underline hover:text-gray-200 transition-colors duration-200"
+                >
+                    {link.label}
+                </a>
+            ))
+        }
+    </nav>
+
+    <div class="mb-6 flex justify-center gap-4 text-sm">
+        {
+            socials.map((social) => (
+                <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover:text-gray-300 transition-colors duration-200"
+                >
+                    {social.label}
+                </a>
+            ))
+        }
+    </div>
+
+    <p class="text-sm text-gray-200">
+        © {currentYear} Aitor — Desarrollador Web Fullstack. Todos los derechos
+        reservados.
+    </p>
+</footer>
