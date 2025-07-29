@@ -1,0 +1,79 @@
+---
+// src/components/Projects.astro
+import ProjectCard from "./ProjectCard.astro";
+
+const projects = [
+  {
+    title: "Análisis de campañas Meta",
+    description:
+      "Dashboard conectado con Meta API y GPT para análisis de campañas.",
+    tech: ["Next.js", "React Query", "Zustand", "MongoDB", "GPT"],
+    url: "https://your-demo-url.com", // si tienes
+  },
+  {
+    title: "TFG - Ecommerce",
+    description: "Ecommerce completo hecho con React y Express, usando MySQL.",
+    tech: ["React", "Express", "MySQL"],
+    url: "https://tu-ecommerce.vercel.app", // si existe
+  },
+  {
+    title: "Juego promo (Ruleta, Quiz, Rasca)",
+    description: "App gamificada con Astro SSR+CSR, Mongo y React.",
+    tech: ["Astro", "React", "MongoDB"],
+    iframe: "https://demo-juego.com", // si lo hosteas
+  },
+  {
+    title: "Product Reservation (Prestashop)",
+    description: "Permite a comerciales gestionar reservas desde el admin.",
+    tech: ["Prestashop", "PHP", "jQuery"],
+    private: true,
+    video: "/videos/product-reservation.mp4", // si grabas demo
+  },
+  {
+    title: "Auto Group Promotion",
+    description: "Cambio de grupos según comportamiento y gasto.",
+    tech: ["Prestashop", "PHP", "MySQL"],
+    private: true,
+    video: "/videos/auto-group.mp4",
+  },
+  {
+    title: "PromotionPrestaFun",
+    description: "Helper de promoción que controla el grupo mientras navegas.",
+    tech: ["Prestashop", "PHP"],
+    private: true,
+  },
+  {
+    title: "3 en Raya React",
+    description: "Mini juego en React para echar unas risas.",
+    tech: ["React", "Vite"],
+    url: "https://github.com/aitor/tres-en-raya",
+  },
+  {
+    title: "Landing estática 1",
+    description: "Web HTML + CSS sin frameworks.",
+    tech: ["HTML", "CSS"],
+    url: "https://tus-landing1.netlify.app",
+  },
+  {
+    title: "Landing estática 2",
+    description: "Otra web estática de prueba.",
+    tech: ["HTML", "CSS"],
+    url: "https://tus-landing2.netlify.app",
+  },
+];
+---
+
+<section id="projects" class="py-20 px-6 bg-white">
+  <div class="max-w-5xl mx-auto text-center">
+    <h2 class="text-3xl font-bold mb-4 text-gray-900">Mis últimos proyectos</h2>
+    <p class="text-gray-600 mb-12">
+      Algunos módulos y sistemas que he desarrollado recientemente. ¿Quieres ver
+      más?
+      <a href="#contact" class="text-purple-600 underline"> Contáctame</a>.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      {projects.map((project) => <ProjectCard {...project} />)}
+    </div>
+  </div>
+</section>
