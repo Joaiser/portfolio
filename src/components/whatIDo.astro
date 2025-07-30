@@ -1,61 +1,61 @@
 ---
 const skills = [
-    {
-        icon: "🎨",
-        title: "Frontend",
-        description: `Me gusta crear interfaces <strong>visuales, dinámicas y agradables</strong> que respondan con fluidez y estilo.`,
-        label: "Tecnologías favoritas:",
-        items: ["React", "Astro", "CSS", "Tailwind"],
-    },
-    {
-        icon: "🧠",
-        title: "Backend",
-        description: `Disfruto montar lógica, flujos y APIs que <strong>funcionen bien y no se rompan</strong>. Me gusta cuando todo encaja.`,
-        label: "Stack habitual:",
-        items: ["Next.js", "Node.js", "Express", "PHP"],
-    },
-    {
-        icon: "🛒",
-        title: "eCommerce & Marketing",
-        description: `Trabajo cada día con tiendas online. <strong>Gestión de productos, campañas, precios y clientes</strong>. Todo afinado.`,
-        label: "Herramientas y APIs:",
-        items: [
-            "PrestaShop",
-            "Strapi",
-            "Meta & Google APIs",
-            "Automatización campañas",
-        ],
-    },
+  {
+    icon: "🎨",
+    title: "Frontend",
+    description: `Me gusta crear interfaces <strong>visuales, dinámicas y agradables</strong> que respondan con fluidez y estilo.`,
+    label: "Tecnologías favoritas:",
+    items: ["React", "Astro", "CSS", "Tailwind"],
+  },
+  {
+    icon: "🧠",
+    title: "Backend",
+    description: `Disfruto montar lógica, flujos y APIs que <strong>funcionen bien y no se rompan</strong>. Me gusta cuando todo encaja.`,
+    label: "Stack habitual:",
+    items: ["Next.js", "Node.js", "Express", "PHP"],
+  },
+  {
+    icon: "🛒",
+    title: "eCommerce & Marketing",
+    description: `Trabajo cada día con tiendas online. <strong>Gestión de productos, campañas, precios y clientes</strong>. Todo afinado.`,
+    label: "Herramientas y APIs:",
+    items: [
+      "PrestaShop",
+      "Strapi",
+      "Meta & Google APIs",
+      "Automatización campañas",
+    ],
+  },
 ];
 ---
 
-<section class="bg-white py-32 px-4 relative">
-    <div class="absolute left-1/2 -translate-x-1/2 -top-64 w-full max-w-6xl">
-        <div class="grid grid-cols-1 md:grid-cols-3 h-auto gap-6">
-            {
-                skills.map((block) => (
-                    <div class="bg-gray-100 p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow h-[100%] w-sm flex flex-col items-center text-center justify-start">
-                        <div class="text-7xl mb-6">{block.icon}</div>
-                        <h3 class="text-3xl font-bold text-gray-800 mb-4">
-                            {block.title}
-                        </h3>
-                        <p
-                            class="text-gray-700 text-lg mb-6"
-                            set:html={block.description}
-                        />
-                        <div class="text-center">
-                            <p class="font-semibold text-[#6c21c0] text-lg mb-2">
-                                {block.label}
-                            </p>
-                            <ul class="text-gray-800 text-xl space-y-2 font-semibold">
-                                {block.items.map((item) => (
-                                    <li>{item}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                ))
-            }
-        </div>
+<section class="bg-white pt-32 px-4 relative">
+  <div class="relative sm:-mt-24 md:-mt-36 lg:-mt-64 w-full mx-auto">
+    <div class="grid grid-cols-1 -mt-96 lg:grid-cols-3 lg:-mt-80 w-full">
+      {
+        skills.map((block) => (
+          <div class="bg-gray-100 w-full  mx-auto p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow flex flex-col items-center text-center">
+            <div class="text-6xl mb-6">{block.icon}</div>
+            <h3 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
+              {block.title}
+            </h3>
+            <p
+              class="text-base lg:text-lg text-gray-700 mb-6"
+              set:html={block.description}
+            />
+            <div class="text-center">
+              <p class="font-semibold text-[#6c21c0] text-lg mb-2">
+                {block.label}
+              </p>
+              <ul class="text-gray-800 text-base lg:text-xl space-y-2 font-semibold">
+                {block.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))
+      }
     </div>
+  </div>
 </section>
