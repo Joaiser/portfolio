@@ -49,16 +49,20 @@ const projects = [
     url: "https://github.com/aitor/tres-en-raya",
   },
   {
-    title: "Landing estática 1",
+    title: "Landing de una web llamada Prelude",
     description: "Web HTML + CSS sin frameworks.",
     tech: ["HTML", "CSS"],
-    url: "https://tus-landing1.netlify.app",
+    repoGithub:
+      "https://github.com/Joaiser/statics-works/tree/main/proyecto-prelude",
+    iframe: "/demos/landingPrelude/proyecto-prelude/index.html",
   },
   {
-    title: "Landing estática 2",
+    title: "landing de proyecto volupa",
     description: "Otra web estática de prueba.",
     tech: ["HTML", "CSS"],
-    url: "https://tus-landing2.netlify.app",
+    repoGithub:
+      "https://github.com/Joaiser/statics-works/tree/main/proyecto-volupa",
+    iframe: "/demos/proyecto-volupa/index.html",
   },
 ];
 ---
@@ -69,7 +73,9 @@ const projects = [
     <p class="text-gray-600 mb-12">
       Algunos módulos y sistemas que he desarrollado recientemente. ¿Quieres ver
       más?
-      <a href="#contact" class="text-purple-600 underline"> Contáctame</a>.
+      <a href="#contact" class="text-purple-600 hover:underline">
+        Contáctame</a
+      >.
     </p>
 
     <div class="grid md:grid-cols-2 gap-8">

@@ -8,6 +8,8 @@ interface Props {
   iframe?: string;
   private?: boolean;
   video?: string;
+  imageUrl?: string;
+  repoGithub?: string;
 }
 
 const {
@@ -18,6 +20,8 @@ const {
   iframe,
   private: isPrivate,
   video,
+  imageUrl,
+  repoGithub,
 } = Astro.props;
 ---
 
@@ -42,24 +46,96 @@ const {
         target="_blank"
         class="mt-4 inline-block text-purple-600 underline text-sm"
       >
-        Ver proyecto
+        Ver proyecto online
       </a>
     )
   }
 
-  {
-    iframe && (
-      <div class="mt-4">
-        <iframe src={iframe} class="w-full h-64 rounded" loading="lazy" />
+ {
+  iframe && (
+    <div x-data="{ open: false }" class="mt-4">
+      <!-- Miniatura iframe con click para abrir modal -->
+      <div @click="open = true" class="cursor-pointer relative group">
+        <iframe
+          src={iframe}
+          class="w-full h-64 rounded pointer-events-none blur-sm group-hover:blur-0 transition duration-300 border border-gray-300"
+          loading="lazy"
+          style="position: relative; z-index: 0;"
+        ></iframe>
+        <div
+          class="absolute inset-0 bg-black/20 flex items-center justify-center rounded text-white opacity-0 group-hover:opacity-100 transition z-10"
+        >
+          <span class="text-sm">Haz clic para ampliar</span>
+        </div>
       </div>
-    )
-  }
+
+      <!-- Modal con iframe grande -->
+      <div
+        x-show="open"
+        x-transition
+        class="fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-4"
+        style="backdrop-filter: blur(4px);"
+      >
+        <div class="relative w-full max-w-7xl bg-white rounded-lg shadow-xl overflow-hidden">
+          <button
+            @click="open = false"
+            class="absolute top-2 right-2 text-gray-700 hover:text-gray-900 text-3xl font-bold z-[10000]"
+            aria-label="Cerrar modal"
+          >
+            ✕
+          </button>
+          <iframe
+            src={iframe}
+            class="w-full h-[95vh]"
+            style="border: none;"
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+  <!-- Podemos poner viewtransitions para el iframe a ver como quedan -->
 
   {
     video && (
       <div class="mt-4">
         <video src={video} controls class="w-full rounded" />
       </div>
+    )
+  }
+
+  {
+    !url && !iframe && !video && imageUrl && (
+      <div class="mt-4">
+        <img
+          src={imageUrl}
+          alt={`Captura del proyecto ${title}`}
+          class="w-full rounded shadow"
+        />
+      </div>
+    )
+  }
+
+  {
+    repoGithub && (
+      <a
+        href={repoGithub}
+        target="_blank"
+        class="mt-2 inline-block text-sm text-gray-600 underline"
+      >
+        Ver código en GitHub
+      </a>
+    )
+  }
+
+  {
+    !url && !iframe && !video && !imageUrl && (
+      <p class="text-sm text-gray-500 mt-4 italic">
+        * No hay demo disponible actualmente
+      </p>
     )
   }
 

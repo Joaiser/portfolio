@@ -1,0 +1,9 @@
+Explicacion css: 
+
+Las variables las uso hasta la linea 194, luego dejo de usarlas. 
+El style en linea lo uso a partir de la linea 138 hasta la 160.
+El posicionamiento sticky lo uso en .tablet-navbar, se puede encontrar 6 veces en el archivo css, la primera en la linea 812.
+El posicionamiento absolute lo uso en la seccion latest-works, el fixed no lo uso.
+Flexbox lo uso en la linea 504 y 525, lo iba a usar más en esa sección pero al final lo quite por tiempo, ya que no me dio tiempo a acabar esa seccion bien.
+Grid lo uso en todas las secciones.
+Uso en muchos enlaces e imagenes hover, ademas en la linea 103 hasta 110 una animacion. 
