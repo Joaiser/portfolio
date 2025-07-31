@@ -1,0 +1,46 @@
+
+
+main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px){
+  form{
+    flex-direction: column;
+  }
+}
+.movies{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  width: 100%;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.movie{
+  text-align: center;
+}
+
+.movie img{
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+}
