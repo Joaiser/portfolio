@@ -1,6 +1,8 @@
 ---
 // src/components/ProjectCard.astro
-interface Props {
+
+export type ProjectStatus = "Finalizado" | "Por pulir" | "En desarrollo";
+export interface Props {
   title: string;
   description: string;
   tech: string[];
@@ -10,6 +12,7 @@ interface Props {
   video?: string;
   imageUrl?: string;
   repoGithub?: string;
+  status?: ProjectStatus;
 }
 
 const {
@@ -22,11 +25,35 @@ const {
   video,
   imageUrl,
   repoGithub,
-} = Astro.props;
+  status,
+} = Astro.props as Props;
+
+const statusClass = {
+  Finalizado: "bg-green-100 text-green-800",
+  "Por pulir": "bg-yellow-100 text-yellow-800",
+  "En desarrollo": "bg-blue-100 text-blue-800",
+};
+
+const statusBadgeClass = status
+  ? statusClass[status] || "bg-gray-100 text-gray-800"
+  : "bg-gray-100 text-gray-800";
 ---
 
-<div class="bg-gray-100 p-6 rounded-xl shadow-md text-left">
-  <h3 class="text-xl font-semibold text-purple-700">{title}</h3>
+<div class="bg-gray-100 p-6 rounded-xl shadow-md text-left relative">
+  <div class="flex items-center justify-between">
+    <h3 class="text-xl font-semibold text-purple-700">{title}</h3>
+
+    {
+      status && (
+        <div
+          class={`mt-1 inline-block px-3 py-1 rounded-full text-xs font-semibold ${statusBadgeClass}`}
+        >
+          {status}
+        </div>
+      )
+    }
+  </div>
+
   <p class="text-gray-700 mt-2">{description}</p>
 
   <div class="mt-4 flex flex-wrap gap-2">
@@ -51,53 +78,46 @@ const {
     )
   }
 
- {
-  iframe && (
-    <div x-data="{ open: false }" class="mt-4">
-      <!-- Miniatura iframe con click para abrir modal -->
-      <div @click="open = true" class="cursor-pointer relative group">
-        <iframe
-          src={iframe}
-          class="w-full h-64 rounded pointer-events-none blur-sm group-hover:blur-0 transition duration-300 border border-gray-300"
-          loading="lazy"
-          style="position: relative; z-index: 0;"
-        ></iframe>
-        <div
-          class="absolute inset-0 bg-black/20 flex items-center justify-center rounded text-white opacity-0 group-hover:opacity-100 transition z-10"
-        >
-          <span class="text-sm">Haz clic para ampliar</span>
-        </div>
-      </div>
-
-      <!-- Modal con iframe grande -->
-      <div
-        x-show="open"
-        x-transition
-        class="fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-4"
-        style="backdrop-filter: blur(4px);"
-      >
-        <div class="relative w-full max-w-7xl bg-white rounded-lg shadow-xl overflow-hidden">
-          <button
-            @click="open = false"
-            class="absolute top-2 right-2 text-gray-700 hover:text-gray-900 text-3xl font-bold z-[10000]"
-            aria-label="Cerrar modal"
-          >
-            ✕
-          </button>
+  {
+    iframe && (
+      <div x-data="{ open: false }" class="mt-4">
+        <div @click="open = true" class="cursor-pointer relative group">
           <iframe
             src={iframe}
-            class="w-full h-[95vh]"
-            style="border: none;"
+            class="w-full h-64 rounded pointer-events-none blur-sm group-hover:blur-0 transition duration-300 border border-gray-300"
             loading="lazy"
-          ></iframe>
+            style="position: relative; z-index: 0;"
+          />
+          <div class="absolute inset-0 bg-black/20 flex items-center justify-center rounded text-white opacity-0 group-hover:opacity-100 transition z-10">
+            <span class="text-sm">Haz clic para ampliar</span>
+          </div>
+        </div>
+
+        <div
+          x-show="open"
+          x-transition
+          class="fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-4"
+          style="backdrop-filter: blur(4px);"
+        >
+          <div class="relative w-full max-w-7xl bg-white rounded-lg shadow-xl overflow-hidden">
+            <button
+              @click="open = false"
+              class="absolute top-2 right-2 text-gray-700 hover:text-gray-900 text-3xl font-bold z-[10000] cursor-pointer"
+              aria-label="Cerrar modal"
+            >
+              ✕
+            </button>
+            <iframe
+              src={iframe}
+              class="w-full h-[95vh]"
+              style="border: none;"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
-
-
-  <!-- Podemos poner viewtransitions para el iframe a ver como quedan -->
+    )
+  }
 
   {
     video && (

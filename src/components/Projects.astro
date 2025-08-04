@@ -1,33 +1,41 @@
 ---
 // src/components/Projects.astro
 import ProjectCard from "./ProjectCard.astro";
+import type { Props as ProjectProps } from "./ProjectCard.astro";
 
-const projects = [
+const projects: ProjectProps[] = [
   {
     title: "Análisis de campañas Meta",
     description:
-      "Dashboard conectado con Meta API y GPT para análisis de campañas.",
+      "Dashboard conectado con Meta API y GPT para análisis de campañas. El usuario puede ver el redimiento de sus campañas, analizar el rendimiento y recibir recomendaciones automáticas a través de GPT.",
     tech: ["Next.js", "React Query", "Zustand", "MongoDB", "GPT"],
-    url: "https://your-demo-url.com", // si tienes
+    video: "/videos/iaCampaigns/IaCampaigns.mp4",
+    repoGithub: "https://github.com/Joaiser/IA-Analysis-Campaigns",
+    status: "En desarrollo",
   },
   {
     title: "TFG - Ecommerce",
-    description: "Ecommerce completo hecho con React y Express, usando MySQL.",
+    description:
+      "Ecommerce completo hecho con React y Express, usando MySQL. Además, usamos dependencias como Axios, React Router, zod, express-validator, bcrypt, jsonwebtoken, dotenv, cors, paypal.",
     tech: ["React", "Express", "MySQL"],
-    url: "https://tu-ecommerce.vercel.app", // si existe
+    video: "/videos/tfg/EcomerceTFG.mp4",
+    repoGithub: "https://github.com/Joaiser/Ecomerce-basico",
+    status: "Por pulir",
   },
   {
     title: "Juego promo (Ruleta, Quiz, Rasca)",
     description: "App gamificada con Astro SSR+CSR, Mongo y React.",
     tech: ["Astro", "React", "MongoDB"],
-    iframe: "https://demo-juego.com", // si lo hosteas
+    iframe: "https://demo-juego.com",
+    status: "En desarrollo",
   },
   {
     title: "Product Reservation (Prestashop)",
     description: "Permite a comerciales gestionar reservas desde el admin.",
     tech: ["Prestashop", "PHP", "jQuery"],
     private: true,
-    video: "/videos/product-reservation.mp4", // si grabas demo
+    video: "/videos/product-reservation.mp4",
+    status: "Finalizado",
   },
   {
     title: "Auto Group Promotion",
@@ -35,12 +43,14 @@ const projects = [
     tech: ["Prestashop", "PHP", "MySQL"],
     private: true,
     video: "/videos/auto-group.mp4",
+    status: "Finalizado",
   },
   {
     title: "PromotionPrestaFun",
     description: "Helper de promoción que controla el grupo mientras navegas.",
     tech: ["Prestashop", "PHP"],
     private: true,
+    status: "Finalizado",
   },
   {
     title: "Buscador de peliculas",
@@ -50,6 +60,7 @@ const projects = [
     repoGithub:
       "https://github.com/Joaiser/Proyectos-React/tree/main/buscarPeliculas",
     video: "/videos/Buscadorpelicula/Buscadorpeliculas.mp4",
+    status: "Finalizado",
   },
   {
     title: "Landing de una web llamada Prelude",
@@ -58,6 +69,7 @@ const projects = [
     repoGithub:
       "https://github.com/Joaiser/statics-works/tree/main/proyecto-prelude",
     iframe: "/demos/landingPrelude/proyecto-prelude/index.html",
+    status: "Finalizado",
   },
   {
     title: "landing de proyecto volupa",
@@ -66,6 +78,7 @@ const projects = [
     repoGithub:
       "https://github.com/Joaiser/statics-works/tree/main/proyecto-volupa",
     iframe: "/demos/landingVolupa/index.html",
+    status: "Finalizado",
   },
 ];
 ---
