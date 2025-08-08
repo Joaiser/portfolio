@@ -29,25 +29,35 @@ const skills = [
 ];
 ---
 
-<section class="bg-white pt-32 px-4 relative">
+<section
+  class="bg-white pt-32 px-4 relative
+         dark:bg-gradient-to-b
+         dark:from-purple-950
+         dark:via-purple-800
+         dark:to-purple-950
+         w-full"
+>
   <div class="relative sm:-mt-24 md:-mt-36 lg:-mt-64 w-full mx-auto">
     <div class="grid grid-cols-1 -mt-96 lg:grid-cols-3 lg:-mt-80 w-full">
       {
         skills.map((block) => (
-          <div class="bg-gray-100 w-full  mx-auto p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow flex flex-col items-center text-center">
-            <div class="text-6xl mb-6">{block.icon}</div>
-            <h3 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
+          <div
+            class="bg-gray-100 w-full  mx-auto p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow flex flex-col items-center text-center 
+          dark:bg-gradient-to-b dark:from-gray-950 dark:to-purple-950"
+          >
+            <div class="text-6xl mb-6 dark:bg-gradient-to-b ">{block.icon}</div>
+            <h3 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-4 dark:text-white">
               {block.title}
             </h3>
             <p
-              class="text-base lg:text-lg text-gray-700 mb-6"
+              class="text-base lg:text-lg text-gray-700 mb-6 dark:text-white"
               set:html={block.description}
             />
-            <div class="text-center">
+            <div class="text-center ">
               <p class="font-semibold text-[#6c21c0] text-lg mb-2">
                 {block.label}
               </p>
-              <ul class="text-gray-800 text-base lg:text-xl space-y-2 font-semibold">
+              <ul class="text-gray-800 text-base lg:text-xl space-y-2 font-semibold  dark:text-white">
                 {block.items.map((item) => (
                   <li>{item}</li>
                 ))}

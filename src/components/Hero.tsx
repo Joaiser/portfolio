@@ -1,4 +1,4 @@
-import { lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
   const fullText = "Hola, soy Aitor. Desarrollador fullstack.";
@@ -45,7 +45,10 @@ export default function Hero() {
   }, [doneTypingFirst]);
 
   return (
-    <section className="flex flex-col justify-center items-center bg-white text-black text-center px-4 min-h-screen pt-20">
+    <section className="flex flex-col justify-center items-center 
+bg-white text-black text-center px-4 min-h-screen pt-20
+dark:bg-gradient-to-b dark:from-purple-950 dark:to-gray-950 dark:text-gray-100">
+
       {/* Frase principal */}
       <h1 className="text-3xl sm:text-5xl font-bold leading-tight py-3.5">
         {displayed}

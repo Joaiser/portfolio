@@ -1,0 +1,11 @@
+---
+
+---
+
+<button
+  onclick="const current = document.documentElement.classList.contains('dark'); document.documentElement.classList.toggle('dark', !current); localStorage.setItem('theme', !current ? 'dark' : 'light');"
+  class="bg-gray-200 dark:bg-gray-800 text-black dark:text-white p-2 rounded-lg"
+  aria-label="Toggle theme"
+>
+  🌓
+</button>
