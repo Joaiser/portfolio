@@ -57,7 +57,7 @@ dark:bg-gradient-to-b dark:from-purple-950 dark:to-gray-950 dark:text-gray-100">
         )}
       </h1>
 
-      <h2 className="text-lg sm:text-xl font-medium text-gray-600 mt-4 flex items-center gap-3 justify-center text-center">
+      <h2 className="text-lg sm:text-xl font-medium text-gray-600 mt-4 flex items-center gap-3 justify-center text-center dark:text-white">
         {!doneTypingSecond && (
           <span className="w-3.5 h-3.5 bg-purple-600 rounded-full animate-blink" />
         )}
