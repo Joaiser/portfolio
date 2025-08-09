@@ -45,47 +45,6 @@ const safeId = title
   .replace(/\s+/g, "-")
   .replace(/[^\w-]/g, "");
 
-  const handleAccess = (safeId:string, privateKey:string) => {
-   const keyInput = document.querySelector(`#input-key-${safeId}`) as HTMLInputElement
-   const key = keyInput?.value || "";
-
-   if(key === privateKey) {
-    localStorage.setItem(`access-${safeId}`, "true")
-    const protectedBlock = document.querySelector(`#protected-${safeId}`) as HTMLElement | null
-    const iframeBlock = document.querySelector(`#iframe-content-${safeId}`) as HTMLElement | null
-
-   if (protectedBlock && iframeBlock) {
-      protectedBlock.style.display = "none";
-      iframeBlock.style.display = "block";
-    }
-  } else {
-    const oldMsg = document.getElementById(`error-msg-${safeId}`);
-    if (oldMsg) oldMsg.remove();
-
-    // Crea el mensaje de error
-    const errorMsg = document.createElement("div");
-    errorMsg.id = `error-msg-${safeId}`;
-    errorMsg.textContent = "Clave incorrecta";
-    errorMsg.style.position = "absolute";
-    errorMsg.style.top = "12px";
-    errorMsg.style.right = "12px";
-    errorMsg.style.background = "#f87171";
-    errorMsg.style.color = "white";
-    errorMsg.style.padding = "8px 16px";
-    errorMsg.style.borderRadius = "8px";
-    errorMsg.style.fontWeight = "bold";
-    errorMsg.style.zIndex = "100";
-
-    // Añade el mensaje al wrapper del iframe
-    const wrapper = document.getElementById(`iframe-wrapper-${safeId}`);
-    if (wrapper) wrapper.appendChild(errorMsg);
-
-    // Elimina el mensaje tras 2 segundos
-    setTimeout(() => {
-      errorMsg.remove();
-    }, 2000);
-  }
-};
 ---
 
 <div class="bg-gray-100 p-6 rounded-xl shadow-md text-left relative dark:bg-gradient-to-b dark:from-purple-950 dark:via-gray-950 dark:to-purple-950">
