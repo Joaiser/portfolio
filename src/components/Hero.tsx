@@ -53,13 +53,13 @@ dark:bg-gradient-to-b dark:from-purple-950 dark:to-gray-950 dark:text-gray-100">
       <h1 className="text-3xl sm:text-5xl font-bold leading-tight py-3.5">
         {displayed}
         {!doneTypingFirst && (
-          <span className="w-5.5 h-5.5 ml-1 inline-block bg-purple-600 rounded-full animate-blink" />
+          <span className="w-5.5 h-5.5 ml-1 inline-block bg-purple-600 rounded-full animate-blink dark:bg-gray-950" />
         )}
       </h1>
 
       <h2 className="text-lg sm:text-xl font-medium text-gray-600 mt-4 flex items-center gap-3 justify-center text-center dark:text-white">
         {!doneTypingSecond && (
-          <span className="w-3.5 h-3.5 bg-purple-600 rounded-full animate-blink" />
+          <span className="w-3.5 h-3.5 bg-purple-600 rounded-full animate-blink dark:bg-gray-950" />
         )}
         <span
           style={{
