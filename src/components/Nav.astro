@@ -77,27 +77,42 @@ import ThemeToggle from "../components/ThemeToggle.astro";
   </div>
 
   <!-- Menú desplegable en mobile -->
+  <!-- Menú desplegable en mobile -->
   <div
-    x-show="open"
-    class="absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-md flex flex-col items-center gap-4 p-6 md:hidden"
+    x-data="{ open: false }"
+    class="absolute top-full left-0 w-full md:hidden"
   >
-    <a href="#about" class="text-purple-700">Sobre mí</a>
-    <a href="#projects" class="text-purple-700">Proyectos</a>
-    <a href="#skills" class="text-purple-700">Habilidades</a>
-    <a
-      href="/curriculum.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="text-purple-700">Currículum</a
+    <div
+      x-show="open"
+      x-transition
+      class="bg-white dark:bg-gray-900 shadow-md flex flex-col items-center gap-4 p-6"
+      x-cloak
     >
+      <!-- Enlaces principales -->
+      <a href="#about" class="text-purple-700 text-lg font-medium">Sobre mí</a>
+      <a href="#projects" class="text-purple-700 text-lg font-medium"
+        >Proyectos</a
+      >
+      <a href="#skills" class="text-purple-700 text-lg font-medium"
+        >Habilidades</a
+      >
+      <a
+        href="/curriculum/Curriculum-actualizado-27-05-25.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-purple-700 text-lg font-medium"
+      >
+        Currículum
+      </a>
 
-    <ThemeToggle />
+      <ThemeToggle />
 
-    <a
-      href="mailto:aitor.v@hotmail.com?subject=Contacto%20desde%20portfolio&body=Hola%20Aitor%2C%20te%20escribo%20porque..."
-      class="border-2 border-purple-600 text-purple-600 text-lg font-normal px-6 py-3 rounded-full hover:bg-purple-600 hover:text-white transition-all duration-200"
-    >
-      Contactar
-    </a>
+      <a
+        href="mailto:aitor.v@hotmail.com?subject=Contacto%20desde%20portfolio&body=Hola%20Aitor%2C%20te%20escribo%20porque..."
+        class="border-2 border-purple-600 text-purple-600 text-lg font-normal px-6 py-3 rounded-full hover:bg-purple-600 hover:text-white transition-all duration-200"
+      >
+        Contactar
+      </a>
+    </div>
   </div>
 </nav>
