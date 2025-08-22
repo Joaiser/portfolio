@@ -3,14 +3,92 @@ import ThemeToggle from "../components/ThemeToggle.astro";
 ---
 
 <nav
+  x-data="{ open: false }"
   class="fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-between items-center backdrop-blur-md
-   border-b border-purple-950/50 dark:bg-gray-900/70 dark:border-purple-950/50"
+    border-b border-purple-950/50 dark:bg-gray-900/70 dark:border-purple-950/50"
 >
+  <!-- Logo -->
   <div class="text-3xl font-bold tracking-tight text-purple-700">
     <a href="/">Aitor</a>
   </div>
-  <div class="flex flex-row items-center gap-4 justify-between">
+
+  <!-- Botón hamburguesa en mobile -->
+  <button
+    @click="open = !open"
+    class="md:hidden text-purple-700 focus:outline-none cursor-pointer"
+  >
+    <!-- Icono hamburguesa -->
+    <svg
+      x-show="!open"
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-8 w-8"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+
+    <!-- Icono de cerrar -->
+    <svg
+      x-show="open"
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-8 w-8"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+
+  <!-- Menú normal en desktop -->
+  <div
+    class="hidden md:flex flex-row items-center gap-8 text-lg font-medium text-purple-700"
+  >
+    <a href="#about" class="text-purple-700">Sobre mí</a>
+    <a href="#skills" class="text-purple-700">Habilidades</a>
+    <a href="#projects" class="text-purple-700">Proyectos</a>
+    <a
+      href="/curriculum/Curriculum-actualizado-27-05-25.pdf"
+      target="_blank"
+      class="text-purple-700">Currículum</a
+    >
+  </div>
+
+  <!-- Botón contacto -->
+  <div class="hidden md:flex flex-row items-center gap-4 justify-between">
     <ThemeToggle />
+    <a
+      href="mailto:aitor.v@hotmail.com?subject=Contacto%20desde%20portfolio&body=Hola%20Aitor%2C%20te%20escribo%20porque..."
+      class="border-2 border-purple-600 text-purple-600 text-lg font-normal px-6 py-3 rounded-full hover:bg-purple-600 hover:text-white transition-all duration-200"
+    >
+      Contactar
+    </a>
+  </div>
+
+  <!-- Menú desplegable en mobile -->
+  <div
+    x-show="open"
+    class="absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-md flex flex-col items-center gap-4 p-6 md:hidden"
+  >
+    <a href="#about" class="text-purple-700">Sobre mí</a>
+    <a href="#projects" class="text-purple-700">Proyectos</a>
+    <a href="#skills" class="text-purple-700">Habilidades</a>
+    <a href="/curriculum.pdf" target="_blank" class="text-purple-700"
+      >Currículum</a
+    >
+
+    <ThemeToggle />
+
     <a
       href="mailto:aitor.v@hotmail.com?subject=Contacto%20desde%20portfolio&body=Hola%20Aitor%2C%20te%20escribo%20porque..."
       class="border-2 border-purple-600 text-purple-600 text-lg font-normal px-6 py-3 rounded-full hover:bg-purple-600 hover:text-white transition-all duration-200"
