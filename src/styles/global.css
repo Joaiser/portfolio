@@ -4,3 +4,7 @@
 html {
   scroll-behavior: smooth;
 }
+
+@theme {
+  --breakpoint-md: 59.5625rem;
+}

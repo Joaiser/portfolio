@@ -1,4 +1,6 @@
 ---
+import SocialLinks from "./SocialLinks.astro";
+
 const links = [
   { label: "Inicio", href: "/" },
   { label: "Sobre mí", href: "#about" },
@@ -6,19 +8,11 @@ const links = [
   { label: "Contacto", href: "#contact" },
 ];
 
-const socials = [
-  { label: "GitHub", href: "https://github.com/Joaiser" },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/aitor-vicent-2534392b7/",
-  },
-];
-
 const currentYear = new Date().getFullYear();
 ---
 
 <footer
-  class="bg-[#6c21c0] text-white py-12 px-6 text-center dark:bg-gradient-to-b dark:from-purple-950 dark:via-gray-950 dark:to-purple-950"
+  class="bg-[#6c21c0] text-white py-12 px-6 text-center dark:bg-gradient-to-b dark:from-gray-950 dark:via-gray-750 dark:to-gray-950"
 >
   <nav class="mb-6 flex flex-wrap justify-center gap-6">
     {
@@ -34,18 +28,7 @@ const currentYear = new Date().getFullYear();
   </nav>
 
   <div class="mb-6 flex justify-center gap-4 text-sm">
-    {
-      socials.map((social) => (
-        <a
-          href={social.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:text-gray-300 transition-colors duration-200"
-        >
-          {social.label}
-        </a>
-      ))
-    }
+    <SocialLinks />
   </div>
 
   <p class="text-sm text-gray-200">

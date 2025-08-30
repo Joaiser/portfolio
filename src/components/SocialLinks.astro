@@ -1,0 +1,21 @@
+---
+import { socials } from "../data/socials";
+import SocialIcon from "./SocialIcon.astro";
+
+const { className = "" } = Astro.props;
+---
+
+<div class={`flex items-center gap-6 ${className}`}>
+  {
+    socials.map((social) => (
+      <a
+        href={social.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-gray-300 transition-colors duration-200"
+      >
+        <SocialIcon icon={social.icon} />
+      </a>
+    ))
+  }
+</div>
