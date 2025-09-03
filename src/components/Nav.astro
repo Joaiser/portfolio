@@ -5,78 +5,79 @@ import SocialLinks from "../components/SocialLinks.astro";
 
 <nav
   x-data="{ open: false }"
-  class="fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-between items-center backdrop-blur-md
-    border-b border-purple-950/50 dark:bg-gray-900/70 dark:border-purple-950/50"
+  class="fixed top-0 left-0 w-full z-50 px-6 py-4 backdrop-blur-md border-b border-purple-950/50 dark:bg-gray-900/70 dark:border-purple-950/50"
 >
-  <!-- Logo -->
-  <div class="text-3xl font-bold tracking-tight text-purple-700">
-    <a href="/">Aitor</a>
-  </div>
-
-  <!-- Botón hamburguesa en mobile -->
-  <button
-    @click="open = !open"
-    class="md:hidden text-purple-700 focus:outline-none cursor-pointer"
-  >
-    <!-- Icono hamburguesa -->
-    <svg
-      x-show="!open"
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-8 w-8"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M4 6h16M4 12h16M4 18h16"></path>
-    </svg>
-
-    <!-- Icono de cerrar -->
-    <svg
-      x-show="open"
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-8 w-8"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M6 18L18 6M6 6l12 12"></path>
-    </svg>
-  </button>
-
-  <!-- Menú normal en desktop -->
   <div
-    class="hidden md:flex flex-row items-center gap-8 text-lg font-medium text-purple-700"
+    class="container mx-auto max-w-[1440px] flex items-center justify-between"
   >
-    <a href="#about" class="text-purple-700">Sobre mí</a>
-    <a href="#skills" class="text-purple-700">Habilidades</a>
-    <a href="#projects" class="text-purple-700">Proyectos</a>
-    <a
-      href="/curriculum/Curriculum-actualizado-27-05-25.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="text-purple-700">Currículum</a
-    >
-  </div>
+    <!-- Logo -->
+    <div class="text-3xl font-bold tracking-tight text-purple-700">
+      <a href="/">Aitor</a>
+    </div>
 
-  <!-- Botón contacto -->
-  <div class="hidden md:flex flex-row items-center gap-4 justify-between">
-    <SocialLinks className="hidden md:flex" />
-
-    <ThemeToggle />
-    <a
-      href="mailto:aitor.v@hotmail.com?subject=Contacto%20desde%20portfolio&body=Hola%20Aitor%2C%20te%20escribo%20porque..."
-      class="border-2 border-purple-600 text-purple-600 text-lg font-normal px-6 py-3 rounded-full hover:bg-purple-600 hover:text-white transition-all duration-200"
+    <!-- Menú normal en desktop -->
+    <div
+      class="hidden md:flex items-center gap-8 text-lg font-medium text-purple-700"
     >
-      Contactar
-    </a>
+      <a href="#about" class="hover:text-purple-600 transition">Sobre mí</a>
+      <a href="#skills" class="hover:text-purple-600 transition">Habilidades</a>
+      <a href="#projects" class="hover:text-purple-600 transition">Proyectos</a>
+      <a
+        href="/curriculum/Curriculum-actualizado-27-05-25.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-purple-600 transition"
+      >
+        Currículum
+      </a>
+    </div>
+
+    <!-- Botón contacto + social -->
+    <div class="hidden md:flex items-center gap-4">
+      <SocialLinks />
+      <ThemeToggle />
+      <a
+        href="mailto:aitor.v@hotmail.com?subject=Contacto%20desde%20portfolio&body=Hola%20Aitor..."
+        class="border-2 border-purple-600 text-purple-600 text-lg font-normal px-6 py-3 rounded-full hover:bg-purple-600 hover:text-white transition-all duration-200"
+      >
+        Contactar
+      </a>
+    </div>
+
+    <!-- Botón hamburguesa mobile -->
+    <button
+      @click="open = !open"
+      class="md:hidden text-purple-700 focus:outline-none"
+    >
+      <svg
+        x-show="!open"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-8 w-8"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <svg
+        x-show="open"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-8 w-8"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
   </div>
 
   <!-- Menú desplegable en mobile -->
@@ -87,7 +88,6 @@ import SocialLinks from "../components/SocialLinks.astro";
       class="bg-white dark:bg-gray-900 shadow-md flex flex-col items-center gap-4 p-6"
       x-cloak
     >
-      <!-- Enlaces principales -->
       <a href="#about" class="text-purple-700 text-lg font-medium">Sobre mí</a>
       <a href="#projects" class="text-purple-700 text-lg font-medium"
         >Proyectos</a
@@ -99,21 +99,15 @@ import SocialLinks from "../components/SocialLinks.astro";
         href="/curriculum/Curriculum-actualizado-27-05-25.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-purple-700 text-lg font-medium"
+        class="text-purple-700 text-lg font-medium">Currículum</a
       >
-        Currículum
-      </a>
-
       <SocialLinks />
-
       <ThemeToggle />
-
       <a
-        href="mailto:aitor.v@hotmail.com?subject=Contacto%20desde%20portfolio&body=Hola%20Aitor%2C%20te%20escribo%20porque..."
+        href="mailto:aitor.v@hotmail.com?subject=Contacto%20desde%20portfolio&body=Hola%20Aitor..."
         class="border-2 border-purple-600 text-purple-600 text-lg font-normal px-6 py-3 rounded-full hover:bg-purple-600 hover:text-white transition-all duration-200"
+        >Contactar</a
       >
-        Contactar
-      </a>
     </div>
   </div>
 </nav>
