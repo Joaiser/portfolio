@@ -1,3 +1,7 @@
+---
+import gsap from "gsap";
+---
+
 <section
   id="about"
   class="bg-[#6c21c0] dark:bg-gradient-to-t dark:from-purple-950 dark:to-gray-950 text-gray-300 dark:text-gray-100 py-12 px-4 h-[500px]"
@@ -43,8 +47,6 @@
 </section>
 
 <script is:inline>
-  import gsap from "gsap";
-
   // Envuelve solo NODOS DE TEXTO en spans, respetando etiquetas (<a>, <span>, etc.)
   function wrapWords(el) {
     if (!el) return;
