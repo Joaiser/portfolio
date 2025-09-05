@@ -42,11 +42,11 @@
   </div>
 </section>
 
-<script>
+<script is:inline>
   import gsap from "gsap";
 
   // Envuelve solo NODOS DE TEXTO en spans, respetando etiquetas (<a>, <span>, etc.)
-  function wrapWords(el: any) {
+  function wrapWords(el) {
     if (!el) return;
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
