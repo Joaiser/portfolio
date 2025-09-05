@@ -3,9 +3,14 @@
   class="bg-[#6c21c0] dark:bg-gradient-to-t dark:from-purple-950 dark:to-gray-950 text-gray-300 dark:text-gray-100 py-12 px-4 h-[500px]"
 >
   <div class="container mx-auto">
-    <article class="flex flex-col justify-center items-center">
-      <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-white">Sobre mí</h2>
-      <p class="max-w-3xl text-center text-base leading-relaxed">
+    <article class="flex flex-col justify-center items-center text-center">
+      <h2
+        id="about-title"
+        class="text-2xl sm:text-3xl font-bold mb-6 text-white"
+      >
+        Sobre mí
+      </h2>
+      <p id="about-text" class="max-w-3xl text-base leading-relaxed">
         Soy Aitor, desarrollador web de Valencia. Me apasiona construir
         aplicaciones útiles y visualmente atractivas, combinando funcionalidad y
         diseño moderno. Suelo trabajar con tecnologías como
@@ -36,3 +41,106 @@
     </article>
   </div>
 </section>
+
+<script>
+  import gsap from "gsap";
+
+  // Envuelve solo NODOS DE TEXTO en spans, respetando etiquetas (<a>, <span>, etc.)
+  function wrapWords(el: any) {
+    if (!el) return;
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        return node.nodeValue?.trim()
+          ? NodeFilter.FILTER_ACCEPT
+          : NodeFilter.FILTER_REJECT;
+      },
+    });
+
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    textNodes.forEach((node) => {
+      const frag = document.createDocumentFragment();
+      const parts = node.nodeValue?.split(/(\s+)/); // conserva espacios
+
+      parts?.forEach((part) => {
+        if (/^\s+$/.test(part)) {
+          frag.appendChild(document.createTextNode(part));
+        } else {
+          const span = document.createElement("span");
+          span.textContent = part;
+          span.style.opacity = "0";
+          span.style.display = "inline-block";
+          span.style.transform = "translateX(20px)"; // sale desde el eje X
+          frag.appendChild(span);
+        }
+      });
+
+      node.parentNode?.replaceChild(frag, node);
+    });
+  }
+
+  function animateAbout() {
+    const section = document.getElementById("about");
+    if (!section) return;
+
+    const title = section.querySelector("#about-title");
+    const text = section.querySelector("#about-text");
+
+    // Preparar palabras
+    wrapWords(text);
+
+    // Timeline: título desde la izquierda y palabras en cascada desde X
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    tl.fromTo(
+      title,
+      { autoAlpha: 0, x: -80 },
+      { autoAlpha: 1, x: 0, duration: 0.8 },
+    );
+
+    if (text) {
+      tl.to(
+        text.querySelectorAll("span"),
+        { autoAlpha: 1, x: 0, duration: 0.45, stagger: 0.03 },
+        "-=0.2",
+      );
+    }
+  }
+
+  // Lanza la animación cuando la sección sea visible
+  function boot() {
+    const section = document.getElementById("about");
+    if (!section) return;
+
+    // Respeta users con reduced motion
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReduced) return;
+
+    let played = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!played && entry.isIntersecting) {
+            played = true;
+            animateAbout();
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.25 },
+    );
+
+    io.observe(section);
+  }
+
+  // Asegura DOM listo y soporta transiciones de Astro
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
+  document.addEventListener("astro:after-swap", boot);
+</script>

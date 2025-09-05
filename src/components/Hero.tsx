@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import gsap from "gsap";
 
 export default function Hero() {
   const fullText = "Hola, soy Aitor. Desarrollador fullstack.";
@@ -8,6 +9,10 @@ export default function Hero() {
   const [reverseDisplayed, setReverseDisplayed] = useState("");
   const [doneTypingFirst, setDoneTypingFirst] = useState(false);
   const [doneTypingSecond, setDoneTypingSecond] = useState(false);
+
+  //referencias para gsap
+  const avatarRef = useRef(null)
+  const devicesRef = useRef(null)
 
   // Frase principal (izquierda → derecha)
   useEffect(() => {
@@ -42,6 +47,22 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, [doneTypingFirst]);
 
+  // Animaciones GSAP
+  useEffect(() => {
+    if (doneTypingSecond) {
+      gsap.fromTo(
+        avatarRef.current,
+        { opacity: 0, y: 50, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power3.out" }
+      )
+      gsap.fromTo(
+        devicesRef.current,
+        { opacity: 0, y: 80 },
+        { opacity: 1, y: 0, duration: 1.2, ease: "power3.out", delay: 0.3 }
+      )
+    }
+  }, [doneTypingSecond])
+
   return (
     <section className="bg-white dark:bg-gradient-to-b dark:from-purple-950 dark:to-gray-950 text-black dark:text-gray-100 px-4 pt-20 text-center">
       <div className="container mx-auto max-w-[1440px] flex flex-col items-center">
@@ -74,15 +95,16 @@ export default function Hero() {
         {/* Avatar */}
         <article className="my-11">
           <img
+            ref={avatarRef}
             src="/avatar-mio.png"
             alt="avatar mio"
             loading="lazy"
-            className="w-[210px] rounded-full"
+            className="w-[210px] rounded-full opacity-0"
           />
         </article>
 
         {/* Imagen ilustrativa */}
-        <article className="w-full flex justify-center">
+        <article ref={devicesRef} className="w-full flex justify-center opacity-0">
           <img
             src="/hero-devices.svg"
             alt="Ilustración de dispositivos"
