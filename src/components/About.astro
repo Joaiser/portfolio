@@ -1,5 +1,6 @@
 <section
   id="about"
+  data-animate
   class="bg-[#6c21c0] dark:bg-gradient-to-t dark:from-purple-950 dark:to-gray-950 text-gray-300 dark:text-gray-100 py-12 px-4 h-[500px]"
 >
   <div class="container mx-auto">
@@ -42,9 +43,9 @@
   </div>
 </section>
 
-<script is:inline type="module">
+<script>
   // Envuelve solo NODOS DE TEXTO en spans, respetando etiquetas (<a>, <span>, etc.)
-  function wrapWords(el) {
+  function wrapWords(el: any) {
     if (!el) return;
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
@@ -143,4 +144,3 @@
   }
   document.addEventListener("astro:after-swap", boot);
 </script>
--->

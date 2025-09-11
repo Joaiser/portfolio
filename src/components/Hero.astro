@@ -1,0 +1,127 @@
+<section
+  id="hero"
+  class="bg-white dark:bg-gradient-to-b dark:from-purple-950 dark:to-gray-950 text-black dark:text-gray-100 px-4 pt-20 text-center"
+>
+  <div class="container mx-auto max-w-[1440px] flex flex-col items-center">
+    <!-- Frase principal -->
+    <h1 id="title" class="text-3xl sm:text-5xl font-bold leading-tight py-3.5">
+      <span id="typed-main"></span>
+      <span
+        id="cursor-main"
+        class="w-5.5 h-5.5 ml-1 inline-block bg-purple-600 rounded-full animate-blink dark:bg-gray-950"
+      ></span>
+    </h1>
+
+    <!-- Frase secundaria -->
+    <h2
+      class="text-lg sm:text-xl font-medium text-gray-600 mt-4 flex items-center gap-3 justify-center text-center dark:text-white"
+    >
+      <span
+        id="cursor-second"
+        class="w-3.5 h-3.5 bg-purple-600 rounded-full animate-blink dark:bg-gray-950"
+      ></span>
+      <span
+        id="typed-second"
+        style="direction: rtl; unicode-bidi: plaintext; text-align: center; display: inline-block;"
+      ></span>
+    </h2>
+
+    <!-- Avatar -->
+    <article class="my-11">
+      <img
+        id="avatar"
+        src="/avatar-mio.png"
+        alt="avatar mio"
+        loading="lazy"
+        class="w-[210px] rounded-full opacity-0"
+      />
+    </article>
+
+    <!-- Imagen ilustrativa -->
+    <article id="devices" class="w-full flex justify-center opacity-0">
+      <img
+        src="/hero-devices.svg"
+        alt="Ilustración de dispositivos"
+        loading="lazy"
+        class="w-full max-w-xl"
+      />
+    </article>
+  </div>
+</section>
+
+<style>
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.3;
+      transform: scale(1.4);
+    }
+  }
+  .animate-blink {
+    animation: blink 0.8s infinite ease-in-out;
+    transition: all 0.2s ease;
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+
+  const fullText = "Hola, soy Aitor. Desarrollador fullstack.";
+  const reverseText =
+    "Construyo experiencias web completas, de la interfaz al servidor.";
+
+  const typedMain = document.getElementById("typed-main")!;
+  const cursorMain = document.getElementById("cursor-main")!;
+  const typedSecond = document.getElementById("typed-second")!;
+  const cursorSecond = document.getElementById("cursor-second")!;
+
+  const avatar = document.getElementById("avatar")!;
+  const devices = document.getElementById("devices")!;
+
+  // Typing principal
+  let i = 0;
+  const interval1 = setInterval(() => {
+    if (i < fullText.length) {
+      typedMain.textContent += fullText[i];
+      i++;
+    } else {
+      clearInterval(interval1);
+      (cursorMain as HTMLElement).style.display = "none";
+      startSecond();
+    }
+  }, 40);
+
+  // Typing secundario (derecha → izquierda)
+  function startSecond() {
+    let j = reverseText.length;
+    const interval2 = setInterval(() => {
+      if (j > 0) {
+        typedSecond.textContent = reverseText.slice(j - 1);
+        j--;
+      } else {
+        clearInterval(interval2);
+        (cursorSecond as HTMLElement).style.display = "none";
+        animateGSAP();
+      }
+    }, 40);
+  }
+
+  // GSAP animaciones
+  function animateGSAP() {
+    gsap.fromTo(
+      avatar,
+      { opacity: 0, y: 50, scale: 0.9 },
+      { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power3.out" },
+    );
+
+    gsap.fromTo(
+      devices,
+      { opacity: 0, y: 80 },
+      { opacity: 1, y: 0, duration: 1.2, ease: "power3.out", delay: 0.3 },
+    );
+  }
+</script>
