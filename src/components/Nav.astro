@@ -22,6 +22,12 @@ import SocialLinks from "../components/SocialLinks.astro";
       class="hidden md:flex items-center gap-8 text-lg font-medium text-purple-700 dark:text-white"
     >
       <a
+        href="#experience"
+        class="text-purple-700 text-lg font-medium dark:text-white"
+      >
+        Experiencia
+      </a>
+      <a
         href="#about"
         class="hover:text-purple-600 hover:scale-105 transition-transform duration-200"
         >Sobre mí</a
@@ -104,51 +110,56 @@ import SocialLinks from "../components/SocialLinks.astro";
     x-cloak
     @click.outside="open = false"
   >
-    <Fragment>
-      <a
-        href="#about"
-        class="text-purple-700 text-lg font-medium dark:text-white"
-        @click="open = false"
-      >
-        Sobre mí
-      </a>
-      <a
-        href="#projects"
-        class="text-purple-700 text-lg font-medium dark:text-white"
-        @click="open = false"
-      >
-        Proyectos
-      </a>
-      <a
-        href="#skills"
-        class="text-purple-700 text-lg font-medium dark:text-white"
-        @click="open = false"
-      >
-        Habilidades
-      </a>
-      <a
-        href="/curriculum/Curriculum-actualizado-27-05-25.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-purple-700 text-lg font-medium dark:text-white"
-        @click="open = false"
-      >
-        Currículum
-      </a>
-      <SocialLinks @click="open = false" />
-      <ThemeToggle @click="open = false" />
+    <a
+      href="#experience"
+      class="text-purple-700 text-lg font-medium dark:text-white"
+      @click="open = false"
+    >
+      Experiencia
+    </a>
+    <a
+      href="#about"
+      class="text-purple-700 text-lg font-medium dark:text-white"
+      @click="open = false"
+    >
+      Sobre mí
+    </a>
+    <a
+      href="#projects"
+      class="text-purple-700 text-lg font-medium dark:text-white"
+      @click="open = false"
+    >
+      Proyectos
+    </a>
+    <a
+      href="#skills"
+      class="text-purple-700 text-lg font-medium dark:text-white"
+      @click="open = false"
+    >
+      Habilidades
+    </a>
+    <a
+      href="/curriculum/Curriculum-actualizado-27-05-25.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-purple-700 text-lg font-medium dark:text-white"
+      @click="open = false"
+    >
+      Currículum
+    </a>
+    <SocialLinks @click="open = false" />
+    <ThemeToggle @click="open = false" />
 
-      <a
-        href="mailto:aitor.v@hotmail.com"
-        class="relative overflow-hidden border-2 border-purple-600 text-purple-600 text-lg font-normal px-6 py-3 rounded-full transition-colors duration-300 dark:text-white"
-        @click="open = false"
-      >
-        <span class="relative z-10">Contactar</span>
-        <span
-          class="absolute inset-0 bg-purple-600 scale-x-0 scale-y-0 origin-center transition-transform duration-300 z-0"
-        ></span>
-      </a>
-    </Fragment>
+    <a
+      href="mailto:aitor.v@hotmail.com"
+      class="relative overflow-hidden border-2 border-purple-600 text-purple-600 text-lg font-normal px-6 py-3 rounded-full transition-colors duration-300 dark:text-white"
+      @click="open = false"
+    >
+      <span class="relative z-10">Contactar</span>
+      <span
+        class="absolute inset-0 bg-purple-600 scale-x-0 scale-y-0 origin-center transition-transform duration-300 z-0"
+      ></span>
+    </a>
   </div>
 </nav>
 
