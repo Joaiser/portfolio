@@ -1,0 +1,131 @@
+---
+// Componente Astro: CanvasParticles.astro
+---
+
+<style>
+  canvas {
+    display: block;
+    position: fixed; /* fijo en toda la ventana */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* que no moleste al hover o clicks */
+    z-index: 0; /* detrás de todo */
+  }
+</style>
+
+<canvas id="particles-canvas"></canvas>
+
+<script>
+  interface Particle {
+    x: number;
+    y: number;
+    radius: number;
+    vx: number;
+    vy: number;
+  }
+
+  const canvas = document.getElementById(
+    "particles-canvas",
+  ) as HTMLCanvasElement;
+  const ctx = canvas.getContext("2d")!;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
+  // --- Partículas ---
+  const particles: Particle[] = [];
+  const PARTICLE_COUNT = 150;
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 2 + 0.5,
+      vx: (Math.random() - 0.5) * 1,
+      vy: (Math.random() - 0.5) * 1,
+    });
+  }
+
+  // --- Mouse ---
+  const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener("mousemove", (e: MouseEvent) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  function isDarkMode() {
+    return document.documentElement.classList.contains("dark");
+  }
+
+  function getParticleColor(p: Particle) {
+    if (isDarkMode()) return "white";
+
+    const el = document.elementFromPoint(p.x, p.y) as HTMLElement | null;
+    if (!el) return "black";
+
+    // Si estamos sobre la sección #about, poner morado oscuro fijo
+    if (el.closest("#about")) return "rgb(20, 0, 40)";
+
+    const bg = getComputedStyle(el).backgroundColor;
+    const match = bg.match(/\d+/g);
+    let [r, g, b] = match?.map(Number) || [0, 0, 0];
+
+    // Mantener la lógica original de oscurecer un poco
+    r = Math.max(0, r - 50);
+    g = Math.max(0, g - 50);
+    b = Math.max(0, b - 50);
+
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+
+  // --- Animación ---
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const darkMode = isDarkMode();
+    const particleColor = darkMode ? "white" : "black";
+    const lineColorBase = darkMode ? [255, 255, 255] : [0, 0, 0];
+
+    particles.forEach((p) => {
+      // Mover partículas
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // Rebotar en bordes
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+      // Dibujar línea hacia el ratón si está cerca
+      const dx = mouse.x - p.x;
+      const dy = mouse.y - p.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 200) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.strokeStyle = `rgba(${lineColorBase.join(",")},${1 - dist / 150})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+
+      // Dibujar partículas
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = particleColor;
+      ctx.fillStyle = getParticleColor(p);
+      ctx.fill();
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>

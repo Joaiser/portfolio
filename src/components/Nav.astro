@@ -11,13 +11,15 @@ import SocialLinks from "../components/SocialLinks.astro";
     class="container mx-auto max-w-[1440px] flex items-center justify-between"
   >
     <!-- Logo -->
-    <div class="text-3xl font-bold tracking-tight text-purple-700">
+    <div
+      class="text-3xl font-bold tracking-tight text-purple-700 dark:text-white"
+    >
       <a href="/">Aitor</a>
     </div>
 
     <!-- Menú normal en desktop -->
     <div
-      class="hidden md:flex items-center gap-8 text-lg font-medium text-purple-700"
+      class="hidden md:flex items-center gap-8 text-lg font-medium text-purple-700 dark:text-white"
     >
       <a
         href="#about"
@@ -45,7 +47,7 @@ import SocialLinks from "../components/SocialLinks.astro";
     </div>
 
     <!-- Botón contacto + social -->
-    <div class="hidden md:flex items-center gap-4">
+    <div class="hidden md:flex items-center gap-4 dark:text-white">
       <SocialLinks />
       <ThemeToggle />
       <a
@@ -61,7 +63,7 @@ import SocialLinks from "../components/SocialLinks.astro";
     <!-- Botón hamburguesa mobile -->
     <button
       @click="open = !open"
-      class="md:hidden text-purple-700 focus:outline-none"
+      class="md:hidden text-purple-700 focus:outline-none dark:text-white cursor-pointer"
     >
       <svg
         x-show="!open"
@@ -95,39 +97,56 @@ import SocialLinks from "../components/SocialLinks.astro";
   </div>
 
   <!-- Menú desplegable en mobile -->
-  <div class="absolute top-full left-0 w-full md:hidden">
-    <div
-      x-show="open"
-      x-transition
-      class="bg-white dark:bg-gray-900 shadow-md flex flex-col items-center gap-4 p-6"
-      x-cloak
+  <div
+    class="absolute top-full left-0 w-full md:hidden bg-white dark:bg-gray-900 shadow-md flex flex-col items-center gap-4 p-6"
+    x-show="open"
+    x-transition
+    x-cloak
+    @click.outside="open = false"
+  >
+    <a
+      href="#about"
+      class="text-purple-700 text-lg font-medium dark:text-white"
+      @click="open = false"
     >
-      <a href="#about" class="text-purple-700 text-lg font-medium">Sobre mí</a>
-      <a href="#projects" class="text-purple-700 text-lg font-medium"
-        >Proyectos</a
-      >
-      <a href="#skills" class="text-purple-700 text-lg font-medium"
-        >Habilidades</a
-      >
-      <a
-        href="/curriculum/Curriculum-actualizado-27-05-25.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-purple-700 text-lg font-medium">Currículum</a
-      >
-      <SocialLinks />
-      <ThemeToggle />
-      <a
-        href="mailto:aitor.v@hotmail.com"
-        class="relative overflow-hidden border-2 border-purple-600 text-purple-600 text-lg font-normal px-6 py-3 rounded-full transition-colors duration-300"
-      >
-        Contactar
-        <span
-          class="absolute inset-0 bg-purple-600 scale-x-0 scale-y-0 origin-center transition-transform duration-300 z-0"
-        ></span>
-        <span class="relative z-10">Contactar</span>
-      </a>
-    </div>
+      Sobre mí
+    </a>
+    <a
+      href="#projects"
+      class="text-purple-700 text-lg font-medium dark:text-white"
+      @click="open = false"
+    >
+      Proyectos
+    </a>
+    <a
+      href="#skills"
+      class="text-purple-700 text-lg font-medium dark:text-white"
+      @click="open = false"
+    >
+      Habilidades
+    </a>
+    <a
+      href="/curriculum/Curriculum-actualizado-27-05-25.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-purple-700 text-lg font-medium dark:text-white"
+      @click="open = false"
+    >
+      Currículum
+    </a>
+    <SocialLinks @click="open = false" />
+    <ThemeToggle @click="open = false" />
+
+    <a
+      href="mailto:aitor.v@hotmail.com"
+      class="relative overflow-hidden border-2 border-purple-600 text-purple-600 text-lg font-normal px-6 py-3 rounded-full transition-colors duration-300 dark:text-white"
+      @click="open = false"
+    >
+      <span class="relative z-10">Contactar</span>
+      <span
+        class="absolute inset-0 bg-purple-600 scale-x-0 scale-y-0 origin-center transition-transform duration-300 z-0"
+      ></span>
+    </a>
   </div>
 </nav>
 

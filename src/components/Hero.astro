@@ -80,39 +80,56 @@
   const cursorMain = document.getElementById("cursor-main")!;
   const typedSecond = document.getElementById("typed-second")!;
   const cursorSecond = document.getElementById("cursor-second")!;
-
   const avatar = document.getElementById("avatar")!;
   const devices = document.getElementById("devices")!;
 
-  // Typing principal
-  let i = 0;
-  const interval1 = setInterval(() => {
-    if (i < fullText.length) {
-      typedMain.textContent += fullText[i];
-      i++;
-    } else {
-      clearInterval(interval1);
-      (cursorMain as HTMLElement).style.display = "none";
-      startSecond();
-    }
-  }, 40);
-
-  // Typing secundario (derecha → izquierda)
-  function startSecond() {
-    let j = reverseText.length;
-    const interval2 = setInterval(() => {
-      if (j > 0) {
-        typedSecond.textContent = reverseText.slice(j - 1);
-        j--;
-      } else {
-        clearInterval(interval2);
-        (cursorSecond as HTMLElement).style.display = "none";
-        animateGSAP();
-      }
-    }, 40);
+  // GSAP typing principal
+  function typeText(
+    target: HTMLElement,
+    text: string,
+    onComplete?: () => void,
+  ) {
+    const obj = { i: 0 };
+    gsap.to(obj, {
+      i: text.length,
+      duration: text.length * 0.04, // 40ms por letra
+      ease: "none",
+      onUpdate: () => {
+        target.textContent = text.slice(0, Math.floor(obj.i));
+      },
+      onComplete: onComplete,
+    });
   }
 
-  // GSAP animaciones
+  // Para el texto secundario de derecha a izquierda
+  function typeReverse(
+    target: HTMLElement,
+    text: string,
+    onComplete?: () => void,
+  ) {
+    const obj = { i: text.length };
+    gsap.to(obj, {
+      i: 0,
+      duration: text.length * 0.04,
+      ease: "none",
+      onUpdate: () => {
+        target.textContent = text.slice(obj.i);
+      },
+      onComplete: onComplete,
+    });
+  }
+
+  // Ejecutamos las animaciones
+  typeText(typedMain, fullText, () => {
+    cursorMain.style.display = "none";
+
+    typeReverse(typedSecond, reverseText, () => {
+      cursorSecond.style.display = "none";
+      animateGSAP();
+    });
+  });
+
+  // GSAP animaciones de avatar y devices
   function animateGSAP() {
     gsap.fromTo(
       avatar,

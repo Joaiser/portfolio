@@ -1,0 +1,83 @@
+---
+import ExperienceCard from "./ExperienceCard.astro";
+---
+
+<section
+  id="experience"
+  class="relative bg-white dark:bg-gradient-to-b dark:from-gray-950 dark:via-purple-950 dark:to-gray-950 text-black dark:text-gray-100 px-4 py-20"
+>
+  <div class="container mx-auto max-w-5xl text-center relative">
+    <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+      Mi experiencia
+    </h2>
+    <p class="text-gray-700 mb-12 dark:text-white">
+      He recorrido un camino de aprendizaje constante: desde los proyectos que
+      hice en el colegio hasta módulos avanzados para PrestaShop y aplicaciones
+      web modernas con React, Next.js y Astro.
+    </p>
+
+    <!-- Timeline wrapper -->
+    <div
+      class="relative pl-8 border-l border-gray-300 dark:border-gray-700 text-left space-y-12"
+    >
+      <!-- Punto animado del timeline -->
+      <div
+        class="absolute -left-3 top-0 w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse"
+      >
+      </div>
+
+      <div class="experience-card opacity-0 translate-y-8">
+        <div class="experience-card opacity-0 translate-y-8">
+          <ExperienceCard
+            role="Desarrollador Web & E-commerce Manager"
+            company="Salamandra Luz"
+            period="2024 - Presente"
+            description="Encargado del desarrollo y gestión integral de la tienda online en PrestaShop: creación de módulos personalizados, implementación de nuevas funcionalidades, optimización de rendimiento y administración del servidor y la base de datos. Además, me ocupo de la gestión diaria del e-commerce: promociones, precios, atención a clientes, pedidos y diseño de fichas de producto utilizando herramientas como Gimp e InDesign."
+            tech={[
+              "PrestaShop",
+              "PHP",
+              "ECMAScript",
+              "JavaScript",
+              "TPL",
+              "CSS",
+            ]}
+          />
+        </div>
+      </div>
+
+      <div class="experience-card opacity-0 translate-y-8">
+        <div class="experience-card opacity-0 translate-y-8">
+          <ExperienceCard
+            role="Proyectos Personales"
+            company="Autodidacta"
+            period="2023 - Presente"
+            description="He desarrollado proyectos propios para aprender y aplicar nuevas tecnologías: desde sitios estáticos hasta aplicaciones web modernas. Estos proyectos me han permitido experimentar con frameworks de frontend y backend, así como integraciones con APIs y despliegues en producción."
+            tech={["React", "Next.js", "Astro", "Node.js", "Express"]}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray(".experience-card").forEach((card) => {
+      gsap.to(card as HTMLElement, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: card as HTMLElement,
+          start: "top 85%",
+        },
+      });
+    });
+  }
+</script>
