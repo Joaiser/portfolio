@@ -75,13 +75,14 @@ const skills = [
     if (!section) return;
 
     const cards = section.querySelectorAll(".container > .grid > div");
-    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
     if (prefersReduced) return;
+
+    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
     if (isDesktop) {
       const tl = gsap.timeline({
@@ -99,7 +100,7 @@ const skills = [
         gsap.from(card, {
           scrollTrigger: {
             trigger: card,
-            start: "top 90%",
+            start: "top 75%",
           },
           y: 50,
           opacity: 0,
