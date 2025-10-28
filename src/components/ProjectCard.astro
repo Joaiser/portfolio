@@ -37,145 +37,92 @@ const statusBadgeClass = status
   ? statusClass[status] || "bg-gray-100 text-gray-800"
   : "bg-gray-100 text-gray-800";
 ---
-
 <div
   class="bg-gray-100 p-6 rounded-xl shadow-md text-left relative dark:bg-gradient-to-b dark:from-purple-950 dark:via-gray-950 dark:to-purple-950"
 >
+  <!-- Título y estado -->
   <div class="flex items-center justify-between">
-    <h3 class="text-xl font-semibold text-purple-700 dark:text-white">
-      {title}
-    </h3>
-
-    {
-      status && (
-        <div
-          class={`mt-1 inline-block px-3 py-1 rounded-full text-xs font-semibold ${statusBadgeClass}`}
-        >
-          {status}
-        </div>
-      )
-    }
+    <h3 class="text-xl font-semibold text-purple-700 dark:text-white">{title}</h3>
+    {status && (
+      <div class={`mt-1 inline-block px-3 py-1 rounded-full text-xs font-semibold ${statusBadgeClass}`}>
+        {status}
+      </div>
+    )}
   </div>
 
+  <!-- Descripción -->
   <p class="text-gray-700 mt-2 dark:text-white">{description}</p>
 
+  <!-- Tecnologías -->
   <div class="mt-4 flex flex-wrap gap-2">
-    {
-      tech.map((t) => (
-        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-sm dark:bg-purple-950 dark:text-purple-400">
-          {t}
-        </span>
-      ))
-    }
+    {tech.map((t) => (
+      <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-sm dark:bg-purple-950 dark:text-purple-400">{t}</span>
+    ))}
   </div>
 
-  {
-    url && (
-      <a
-        href={url}
-        target="_blank"
-        class="mt-4 inline-block text-purple-600 underline text-sm"
-      >
-        Ver proyecto online
-      </a>
-    )
-  }
+  <!-- Proyecto online -->
+  {url && (
+    <a href={url} target="_blank" class="mt-4 inline-block text-purple-600 underline text-sm">
+      Ver proyecto online
+    </a>
+  )}
 
-  {
-    // solo mostrar el iframe si es de YouTube
-    iframe &&
-      (iframe.startsWith("https://youtu.be/") ||
-        iframe.startsWith("https://www.youtube.com/embed/")) && (
-        <div x-data="{ open: false }" class="mt-4">
-          <div @click="open = true" class="cursor-pointer relative group">
-            <iframe
-              src={
-                iframe.startsWith("https://youtu.be/")
-                  ? `https://www.youtube.com/embed/${iframe.split("/").pop()}`
-                  : iframe
-              }
-              class="w-full h-64 rounded pointer-events-none blur-sm group-hover:blur-0 transition duration-300 border border-gray-300"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              style="position: relative; z-index: 0;"
-              title={`Video de YouTube de ${title}`}
-            />
-            <div class="absolute inset-0 bg-black/20 flex items-center justify-center rounded text-white opacity-0 group-hover:opacity-100 transition z-10">
-              <span class="text-sm">Haz clic para ampliar</span>
-            </div>
-          </div>
-
-          <div
-            x-show="open"
-            x-transition
-            class="fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-4"
-            style="backdrop-filter: blur(4px);"
-          >
-            <div class="relative w-full max-w-7xl bg-white rounded-lg shadow-xl overflow-hidden">
-              <button
-                @click="open = false"
-                class="absolute top-2 right-2 text-gray-700 hover:text-gray-900 text-3xl font-bold z-[10000] cursor-pointer"
-                aria-label="Cerrar modal"
-              >
-                ✕
-              </button>
-              <iframe
-                src={
-                  iframe.startsWith("https://youtu.be/")
-                    ? `https://www.youtube.com/embed/${iframe.split("/").pop()}`
-                    : iframe
-                }
-                class="w-full h-[95vh]"
-                style="border: none;"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                title={`Video de YouTube de ${title}`}
-              />
-            </div>
-          </div>
-        </div>
-      )
-  }
-
-  {
-    video && (
-      <div class="mt-4">
-        <video src={video} controls class="w-full rounded shadow" />
+ {iframe && (
+  <div x-data="{ open: false }" class="mt-4">
+    <!-- Thumbnail -->
+    <div 
+      x-show="!open" 
+      @click="open = true" 
+      class="relative cursor-pointer group"
+    >
+      <img
+        src={`https://img.youtube.com/vi/${iframe.split("/").pop()}/maxresdefault.jpg`}
+        class="w-full h-64 object-cover rounded"
+        alt={`Thumbnail del proyecto ${title}`}
+      />
+      <div class="absolute inset-0 bg-black/25 flex items-center justify-center rounded opacity-0 group-hover:opacity-100 transition">
+        <span class="text-white font-semibold">Haz clic para reproducir</span>
       </div>
-    )
-  }
+    </div>
 
-  {
-    !url && !iframe && !video && imageUrl && (
-      <div class="mt-4">
-        <img
-          src={imageUrl}
-          alt={`Captura del proyecto ${title}`}
-          class="w-full rounded shadow"
-        />
-      </div>
-    )
-  }
+    <!-- Iframe ocupa el mismo espacio que el thumbnail/card -->
+    <div x-show="open" x-transition class="w-full h-64 mt-0 rounded overflow-hidden">
+      <iframe
+        src={`https://www.youtube.com/embed/${iframe.split("/").pop()}?autoplay=1`}
+        class="w-full h-full"
+        style="border: none;"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        title={`Video de YouTube de ${title}`}
+      />
+    </div>
+  </div>
+)}
 
-  {
-    repoGithub && (
-      <a
-        href={repoGithub}
-        target="_blank"
-        class="mt-2 inline-block text-sm text-gray-600 underline dark:text-white"
-      >
-        Ver código en GitHub
-      </a>
-    )
-  }
 
-  {
-    !url && !iframe && !video && !imageUrl && (
-      <p class="text-sm text-gray-500 mt-4 italic dark:text-white">
-        * No hay demo disponible actualmente
-      </p>
-    )
-  }
+  <!-- Video local -->
+  {video && (
+    <div class="mt-4">
+      <video src={video} controls class="w-full rounded shadow" />
+    </div>
+  )}
+
+  <!-- Imagen -->
+  {!url && !iframe && !video && imageUrl && (
+    <div class="mt-4">
+      <img src={imageUrl} alt={`Captura del proyecto ${title}`} class="w-full rounded shadow" />
+    </div>
+  )}
+
+  <!-- GitHub -->
+  {repoGithub && (
+    <a href={repoGithub} target="_blank" class="mt-2 inline-block text-sm text-gray-600 underline dark:text-white">
+      Ver código en GitHub
+    </a>
+  )}
+
+  <!-- Si no hay nada que mostrar -->
+  {!url && !iframe && !video && !imageUrl && (
+    <p class="text-sm text-gray-500 mt-4 italic dark:text-white">* No hay demo disponible actualmente</p>
+  )}
 </div>
