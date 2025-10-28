@@ -131,3 +131,64 @@ const projects: ProjectProps[] = [
     </div>
   </div>
 </section>
+
+<script>
+  // ✅ Import estándar desde npm
+  import gsap from "gsap";
+  import ScrollTrigger from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function animateProjects() {
+    const section = document.getElementById("projects");
+    if (!section) return;
+
+    const cards = section.querySelectorAll(".grid > *");
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReduced) return;
+
+    // ScrollTrigger se encarga de detectar cuándo entra en vista
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top 0%",
+      },
+    });
+
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+
+    if (isDesktop) {
+      // 💻 Versión desktop: animación tipo grid (dos por fila)
+      cards.forEach((card, i) => {
+        const fromX = i % 2 === 0 ? -150 : 150; // alterna izquierda/derecha
+        tl.from(card, {
+          x: fromX,
+          y: 80,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.2,
+        }); // escalonadas ligeramente
+      });
+    } else {
+      // 📱 Versión móvil: animación vertical simple
+      cards.forEach((card, i) => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+          },
+          y: 80,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          delay: i * 0.15,
+        });
+      });
+    }
+  }
+
+  animateProjects();
+</script>
